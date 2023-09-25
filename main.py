@@ -1,4 +1,4 @@
-from utils import CriptoConverter, ConvertionError
+from extensions import CriptoConverter,APIError
 import telebot
 from config import TOKEN, val
 
@@ -26,9 +26,9 @@ def convert(message:telebot.types.Message):
     values = message.text.split(" ")
 
     if len(values) != 3:
-        raise ConvertionError("Укажите 3 параметра: исходная валюта, валюта конвертации и количество")
+        raise APIError("Укажите 3 параметра: исходная валюта, валюта конвертации и количество")
     quote,base,amount = values
-    total_base = CriptoConverter.convert(quote,base,amount)
+    total_base = CriptoConverter.get_price(quote,base,amount)
 
     text = f"Цена {amount} {quote} в {base} равна {total_base}"
     bot.send_message(message.chat.id,text)

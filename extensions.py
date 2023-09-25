@@ -1,30 +1,30 @@
 import requests
 import json
 from config import val
-class ConvertionError(Exception):
+class APIError(Exception):
     pass
 
 class CriptoConverter:
     @staticmethod
-    def convert(quote: str,base: str,amount:str):
+    def get_price(quote: str,base: str,amount:str):
 
         if quote == base:
-            raise ConvertionError("Укажите две разные валюты!")
+            raise APIError("Укажите две разные валюты!")
 
         try:
             quote_ticker = val[quote]
         except KeyError:
-            raise ConvertionError(f"Не удалось обработать валюту {quote}")
+            raise APIError(f"Не удалось обработать валюту {quote}")
 
         try:
             base_ticker = val[base]
         except:
-            raise ConvertionError(f"Не удалось обработать валюту {base}")
+            raise APIError(f"Не удалось обработать валюту {base}")
 
         try:
             amount = float(amount)
         except ValueError:
-            raise ConvertionError(f"Не удалось обработать количество {amount}")
+            raise APIError(f"Не удалось обработать количество {amount}")
 
         finally:
             r = requests.get(
