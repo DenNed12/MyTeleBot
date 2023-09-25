@@ -27,7 +27,7 @@ def convert(message:telebot.types.Message):
 
     if len(values) != 3:
         raise ConvertionError("Укажите 3 параметра: исходная валюта, валюта конвертации и количество")
-    quote,base,amount =values
+    quote,base,amount = values
     total_base = CriptoConverter.convert(quote,base,amount)
 
     text = f"Цена {amount} {quote} в {base} равна {total_base}"
