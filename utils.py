@@ -27,6 +27,7 @@ class CriptoConverter:
             raise ConvertionError(f"Не удалось обработать количество {amount}")
 
         finally:
-            r = requests.get(f"https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}")
-            total_base = json.loads(r.content)[val[base]] * int(amount)
+            r = requests.get(
+                f" https://v6.exchangerate-api.com/v6/8882e2bf256b8996a2a24927/pair/{quote_ticker}/{base_ticker}/{amount}")
+            total_base = json.loads(r.content)["conversion_result"]
             return total_base
