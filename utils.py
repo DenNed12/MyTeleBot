@@ -33,3 +33,5 @@ class CriptoConverter:
             total_base = json.loads(r.content)["conversion_result"] #* int(amount)
             print(total_base)
             return total_base
+
+
